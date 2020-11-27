@@ -1,12 +1,19 @@
 package com.jsgygujun.springbootconfig.config;
 
-import org.springframework.stereotype.Component;
+import com.jsgygujun.springbootconfig.client.KVClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author GuJun
  * @date 2020/11/16
  */
-@Component
+@Configuration
 public class MyConfiguration {
-
+    @Bean(value = "kvClient")
+    @ConditionalOnProperty(prefix = "repository.kv", name = "on", havingValue = "true")
+    public KVClient createKVClient() {
+        return new KVClient();
+    }
 }
